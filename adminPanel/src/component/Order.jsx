@@ -10,7 +10,7 @@ const Orders = () => {
     fetchOrders();
   }, []);
 
-  // 📥 get orders from backend (JWT PROTECTED)
+  //  get orders from backend (JWT PROTECTED)
   const fetchOrders = async () => {
     try {
       const token = localStorage.getItem("adminToken");
@@ -24,15 +24,12 @@ const Orders = () => {
         }
       );
 
-      // 🔥 HANDLE ALL RESPONSE TYPES
+      //  HANDLE ALL RESPONSE TYPES
       const data = Array.isArray(res.data)
         ? res.data
         : Array.isArray(res.data?.orders)
         ? res.data.orders
         : [];
-
-      console.log("ORDERS FROM API:", data);
-
       setOrders(data);
       setLoading(false);
     } catch (err) {
@@ -42,7 +39,7 @@ const Orders = () => {
     }
   };
 
-  // ✅ accept / reject order (JWT PROTECTED)
+  //  accept / reject order (JWT PROTECTED)
   const updateStatus = async (id, status) => {
     try {
       const token = localStorage.getItem("adminToken");

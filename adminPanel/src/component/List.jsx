@@ -112,7 +112,7 @@ const FoodRow = ({ food, onDelete }) => {
     <div className="flex items-center justify-between px-6 py-4 border-b last:border-b-0 hover:bg-gray-50 transition">
       {/* Left */}
       <div className="flex items-center gap-4">
-        <div className="w-14 h-14 bg-gray-200 rounded-lg overflow-hidden flex-shrink-0">
+        <div className="w-14 h-14 bg-gray-200 rounded-lg overflow-hidden shrink-0">
           {food.imageUrl && (
             <img
               src={food.imageUrl}

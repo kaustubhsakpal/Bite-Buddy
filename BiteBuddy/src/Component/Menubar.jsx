@@ -148,7 +148,7 @@ const Menubar = () => {
             signOut();
             setOpen(false);
           }}
-          className="w-full py-2 font-semibold text-white bg-gradient-to-r from-red-500 to-rose-500 rounded-lg active:scale-95"
+          className="w-full py-2 font-semibold text-white bg-linear-to-r from-red-500 to-rose-500 rounded-lg active:scale-95"
         >
           Logout
         </button>
