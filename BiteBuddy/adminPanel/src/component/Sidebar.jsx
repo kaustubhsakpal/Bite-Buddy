@@ -1,8 +1,6 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Sidebar = () => {
-  const navigate = useNavigate();
-
   const linkClass = ({ isActive }) =>
     `no-underline flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200
      ${
@@ -11,16 +9,11 @@ const Sidebar = () => {
          : "text-white/80 hover:bg-white/10 hover:text-white"
      }`;
 
-  const handleLogout = () => {
-    localStorage.removeItem("adminToken");
-    navigate("/admin/login");
-  };
-
   return (
     <aside
       className="
       fixed top-0 left-0 h-screen w-56
-      bg-linear-to-b from-indigo-900 via-purple-900 to-indigo-950
+      bg-gradient-to-b from-indigo-900 via-purple-900 to-indigo-950
       text-white shadow-2xl z-40 flex flex-col
     "
     >
@@ -52,25 +45,14 @@ const Sidebar = () => {
           🧾 Orders
         </NavLink>
 
+        {/* Messages (always visible, no auth logic) */}
         <NavLink to="/admin/messages" className={linkClass}>
           📨 Messages
         </NavLink>
       </nav>
 
-      {/* Footer */}
-      <div className="px-4 py-3 border-t border-white/10 text-xs text-white/50 space-y-2">
-        <div>
-          @Admin Panel kaustubhsakpal9@gmail.com  
-          Contact - 9130051235
-        </div>
-
-        {/* LOGOUT BUTTON */}
-        <button
-          onClick={handleLogout}
-          className="w-fit mt-2 px-3 py-2 bg-red-500 text-2xl text-white hover:bg-red-600 transition rounded"
-        >
-          Logout
-        </button>
+      <div className="px-4 py-3 border-t border-white/10 text-xs text-white/50">
+        Admin Panel
       </div>
     </aside>
   );

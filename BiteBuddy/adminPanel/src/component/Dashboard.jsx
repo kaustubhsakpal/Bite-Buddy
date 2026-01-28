@@ -23,36 +23,23 @@ const Dashboard = () => {
     return () => clearInterval(interval);
   }, []);
 
- const fetchDashboard = async () => {
-  try {
-    const token = localStorage.getItem("adminToken");
+  const fetchDashboard = async () => {
+    try {
+      const summaryRes = await axios.get(
+        "http://localhost:8080/api/dashboard/summary"
+      );
 
-    const summaryRes = await axios.get(
-      "http://localhost:8080/api/dashboard/summary",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+      const activityRes = await axios.get(
+        "http://localhost:8080/api/dashboard/activity"
+      );
 
-    const activityRes = await axios.get(
-      "http://localhost:8080/api/dashboard/activity",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    setStats(summaryRes.data);
-    setActivities(activityRes.data);
-    setLoading(false);
-  } catch (err) {
-    console.error("Dashboard API error", err);
-  }
-};
-
+      setStats(summaryRes.data);
+      setActivities(activityRes.data);
+      setLoading(false);
+    } catch (err) {
+      console.error("Dashboard API error", err);
+    }
+  };
 
   if (loading) {
     return <p className="text-gray-500">Loading dashboard...</p>;

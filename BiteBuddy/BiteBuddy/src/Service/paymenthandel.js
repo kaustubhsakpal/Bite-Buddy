@@ -7,6 +7,7 @@ export const handlePayment = async (
   onSuccess
 ) => {
   try {
+    // 1️⃣ Create Razorpay Order
     const res = await fetch(
       "http://localhost:8080/api/payment/create-order",
       {
@@ -27,7 +28,10 @@ export const handlePayment = async (
       name: "BiteBuddy",
       description: "Food Order Payment",
       order_id: razorpayOrder.orderId,
+
+      // 🔥 PAYMENT SUCCESS HANDLER
       handler: async function (response) {
+        // 2️⃣ Verify payment
         const verifyRes = await fetch(
           "http://localhost:8080/api/payment/verify-payment",
           {
@@ -35,9 +39,12 @@ export const handlePayment = async (
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(response),
           }
-         );
+        );
+
         const result = await verifyRes.json();
+
         if (result.status === "success") {
+          // 3️⃣ SAVE ORDER IN BACKEND 🔥🔥🔥
           await axios.post(
             "http://localhost:8080/api/orders",
             {
@@ -48,7 +55,7 @@ export const handlePayment = async (
           );
 
           toast.success("Payment Successful 🎉");
-          onSuccess(); 
+          onSuccess(); // redirect
         } else {
           toast.error("Payment verification failed");
         }

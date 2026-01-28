@@ -6,23 +6,11 @@ import { deleteFood } from "../service/fooddelete";
 const FoodList = () => {
   const [list, setList] = useState([]);
   const [deleteId, setDeleteId] = useState(null);
-
   const fetchList = async () => {
     try {
-      const token = localStorage.getItem("adminToken");
-
-      const res = await axios.get(
-        "http://localhost:8080/api/foods",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
+      const res = await axios.get("http://localhost:8080/api/foods");
       setList(res.data);
     } catch (err) {
-      console.error(err);
       toast.error("Error while getting data");
     }
   };
@@ -34,7 +22,6 @@ const FoodList = () => {
       setDeleteId(null);
       fetchList();
     } catch (err) {
-      console.error(err);
       toast.error("Error deleting food");
     }
   };
@@ -74,10 +61,21 @@ const FoodList = () => {
         )}
       </div>
 
-      {/* DELETE MODAL */}
+      {/* 🔥 CUSTOM DELETE MODAL */}
       {deleteId && (
-        <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center">
-          <div className="bg-white rounded-2xl shadow-xl w-80 p-6 text-center">
+        <div className="
+          fixed inset-0 z-50
+          bg-black/40
+          flex items-center justify-center
+        ">
+          <div className="
+            bg-white
+            rounded-2xl
+            shadow-xl
+            w-80
+            p-6
+            text-center
+          ">
             <h3 className="text-lg font-semibold text-gray-900">
               Delete food?
             </h3>
@@ -88,14 +86,23 @@ const FoodList = () => {
             <div className="mt-6 flex justify-end gap-3">
               <button
                 onClick={() => setDeleteId(null)}
-                className="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100"
+                className="
+                  px-4 py-2 rounded-lg
+                  text-gray-600
+                  hover:bg-gray-100
+                "
               >
                 Cancel
               </button>
 
               <button
                 onClick={handleDelete}
-                className="px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700"
+                className="
+                  px-4 py-2 rounded-lg
+                  bg-red-600
+                  text-white
+                  hover:bg-red-700
+                "
               >
                 Delete
               </button>
@@ -109,7 +116,15 @@ const FoodList = () => {
 
 const FoodRow = ({ food, onDelete }) => {
   return (
-    <div className="flex items-center justify-between px-6 py-4 border-b last:border-b-0 hover:bg-gray-50 transition">
+    <div
+      className="
+        flex items-center justify-between
+        px-6 py-4
+        border-b last:border-b-0
+        hover:bg-gray-50
+        transition
+      "
+    >
       {/* Left */}
       <div className="flex items-center gap-4">
         <div className="w-14 h-14 bg-gray-200 rounded-lg overflow-hidden flex-shrink-0">
@@ -140,7 +155,12 @@ const FoodRow = ({ food, onDelete }) => {
 
         <button
           onClick={onDelete}
-          className="text-red-500 hover:text-red-700 text-lg transition"
+          className="
+            text-red-500
+            hover:text-red-700
+            text-lg
+            transition
+          "
           title="Delete food"
         >
           ❌

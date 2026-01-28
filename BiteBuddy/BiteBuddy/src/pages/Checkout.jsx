@@ -17,13 +17,13 @@ const Checkout = () => {
     pincode: "",
   });
 
-  // cart items
+  // cart ke items
   const cartFood = foodList.filter((item) => cartItems[item.id]);
 
-  // calculations
+  // calculations (SAME AS BEFORE)
   const itemTotal = cartFood.reduce(
     (sum, item) => sum + item.price * cartItems[item.id],
-    0,
+    0
   );
 
   const deliveryFee = itemTotal > 0 ? 40 : 0;
@@ -39,7 +39,7 @@ const Checkout = () => {
     );
   }
 
-  //  ONLY LOGIC FIX HERE
+  // 🔥 ONLY LOGIC FIX HERE
   const handlePayClick = () => {
     const { name, phone, street, city, state, pincode } = address;
 
@@ -48,7 +48,7 @@ const Checkout = () => {
       return;
     }
 
-    //  ORDER PAYLOAD (
+    // ✅ SIMPLE ORDER PAYLOAD (backend compatible)
     const firstItem = cartFood[0];
 
     const orderPayload = {
@@ -79,7 +79,9 @@ const Checkout = () => {
             type="text"
             placeholder="Full Name"
             value={address.name}
-            onChange={(e) => setAddress({ ...address, name: e.target.value })}
+            onChange={(e) =>
+              setAddress({ ...address, name: e.target.value })
+            }
             className="h-11 border rounded-lg px-4 outline-none focus:ring-2 focus:ring-orange-400"
           />
 
@@ -87,7 +89,9 @@ const Checkout = () => {
             type="text"
             placeholder="Phone Number"
             value={address.phone}
-            onChange={(e) => setAddress({ ...address, phone: e.target.value })}
+            onChange={(e) =>
+              setAddress({ ...address, phone: e.target.value })
+            }
             className="h-11 border rounded-lg px-4 outline-none focus:ring-2 focus:ring-orange-400"
           />
         </div>
@@ -96,7 +100,9 @@ const Checkout = () => {
           type="text"
           placeholder="Street Address"
           value={address.street}
-          onChange={(e) => setAddress({ ...address, street: e.target.value })}
+          onChange={(e) =>
+            setAddress({ ...address, street: e.target.value })
+          }
           className="h-11 w-full border rounded-lg px-4 outline-none focus:ring-2 focus:ring-orange-400"
         />
 
@@ -105,7 +111,9 @@ const Checkout = () => {
             type="text"
             placeholder="City"
             value={address.city}
-            onChange={(e) => setAddress({ ...address, city: e.target.value })}
+            onChange={(e) =>
+              setAddress({ ...address, city: e.target.value })
+            }
             className="h-11 border rounded-lg px-4 outline-none focus:ring-2 focus:ring-orange-400"
           />
 
@@ -113,7 +121,9 @@ const Checkout = () => {
             type="text"
             placeholder="State"
             value={address.state}
-            onChange={(e) => setAddress({ ...address, state: e.target.value })}
+            onChange={(e) =>
+              setAddress({ ...address, state: e.target.value })
+            }
             className="h-11 border rounded-lg px-4 outline-none focus:ring-2 focus:ring-orange-400"
           />
 
@@ -126,15 +136,6 @@ const Checkout = () => {
             }
             className="h-11 border rounded-lg px-4 outline-none focus:ring-2 focus:ring-orange-400"
           />
-        </div>
-        <div className="w-full h-64 mt-4 rounded-xl overflow-hidden border">
-          <iframe
-            title="Delivery Location Map"
-            src="https://www.google.com/maps?q=India&output=embed"
-            className="w-full h-full border-0"
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          ></iframe>
         </div>
       </div>
 

@@ -17,12 +17,15 @@ const Menubar = () => {
     <header className="w-full sticky top-0 z-50 bg-white/70 backdrop-blur-md shadow-sm">
       <div className="mx-auto w-[92%] md:w-[80%] py-3">
         <nav className="flex items-center justify-between">
+          {/* LOGO */}
           <Link to="/" className="flex items-center gap-2">
             <img src={logo} alt="BiteBuddy" className="h-10 w-auto " />
             <span className="hidden sm:block font-bold text-lg text-gray-800">
               BiteBuddy
             </span>
           </Link>
+
+          {/* LINKS */}
           <div className="hidden md:flex items-center gap-8">
             <Link className="nav-link" to="/">
               Home
@@ -34,6 +37,8 @@ const Menubar = () => {
               Contact
             </Link>
           </div>
+
+          {/* RIGHT */}
           <div className="hidden md:flex items-center gap-3">
             <Link to="/cart" className="relative text-xl text-gray-700">
               <i className="bi bi-cart3"></i>
@@ -43,6 +48,8 @@ const Menubar = () => {
                 </span>
               )}
             </Link>
+
+            {/* 🔐 AUTH SECTION */}
             {!isSignedIn ? (
               <>
                 <Link
@@ -75,6 +82,8 @@ const Menubar = () => {
               </>
             )}
           </div>
+
+          {/* MOBILE BTN */}
           <button
             onClick={() => setOpen(!open)}
             className="md:hidden text-2xl text-gray-700"
@@ -84,80 +93,64 @@ const Menubar = () => {
         </nav>
 
         {/* MOBILE MENU */}
-{open && (
-  <div className="md:hidden mt-4 bg-white rounded-xl shadow-lg overflow-hidden">
-    
-    {/* links */}
-    <div className="flex flex-col divide-y">
-      <Link
-        onClick={() => setOpen(false)}
-        className="px-5 py-3 text-gray-700 font-medium hover:bg-gray-100"
-        to="/"
-      >
-        Home
-      </Link>
+        {open && (
+          <div className="md:hidden mt-4 bg-white rounded-xl shadow-lg">
+            <Link onClick={() => setOpen(false)} className="mobile-link" to="/">
+              Home
+            </Link>
+            <Link
+              onClick={() => setOpen(false)}
+              className="mobile-link"
+              to="/explore"
+            >
+              Explore
+            </Link>
+            <Link
+              onClick={() => setOpen(false)}
+              className="mobile-link"
+              to="/contact"
+            >
+              Contact
+            </Link>
 
-      <Link
-        onClick={() => setOpen(false)}
-        className="px-5 py-3 text-gray-700 font-medium hover:bg-gray-100"
-        to="/explore"
-      >
-        Explore
-      </Link>
+            <Link
+              onClick={() => setOpen(false)}
+              className="mobile-link"
+              to="/cart"
+            >
+              Cart ({cartCount})
+            </Link>
 
-      <Link
-        onClick={() => setOpen(false)}
-        className="px-5 py-3 text-gray-700 font-medium hover:bg-gray-100"
-        to="/contact"
-      >
-        Contact
-      </Link>
-
-      <Link
-        onClick={() => setOpen(false)}
-        className="px-5 py-3 text-gray-700 font-medium hover:bg-gray-100"
-        to="/cart"
-      >
-        Cart ({cartCount})
-      </Link>
-    </div>
-
-    {/* auth section */}
-    <div className="p-4 border-t">
-      {!isSignedIn ? (
-        <div className="flex flex-col gap-3">
-          <Link
-            onClick={() => setOpen(false)}
-            to="/login"
-            className="text-center py-2 font-semibold text-gray-700 border rounded-lg hover:bg-gray-50"
-          >
-            Login
-          </Link>
-
-          <Link
-            onClick={() => setOpen(false)}
-            to="/register"
-            className="text-center py-2 font-semibold text-white bg-orange-500 rounded-lg hover:bg-orange-600"
-          >
-            Register
-          </Link>
-        </div>
-      ) : (
-        <button
-          onClick={() => {
-            signOut();
-            setOpen(false);
-          }}
-          className="w-full py-2 font-semibold text-white bg-gradient-to-r from-red-500 to-rose-500 rounded-lg active:scale-95"
-        >
-          Logout
-        </button>
-      )}
-    </div>
-
-  </div>
-)}
-
+            {!isSignedIn ? (
+              <>
+                <Link
+                  onClick={() => setOpen(false)}
+                  className="mobile-link"
+                  to="/login"
+                >
+                  Login
+                </Link>
+                <Link
+                  onClick={() => setOpen(false)}
+                  to="/register"
+                  className="block text-center py-3 font-semibold text-white bg-orange-500"
+                >
+                  Register
+                </Link>
+              </>
+            ) : (
+              <button
+                onClick={() => {
+                  signOut();
+                  setOpen(false);
+                }}
+                className="   w-full py-3 flex items-center justify-center gap-2 font-semibold text-sm text-white bg-gradient-to-r from-red-500 to-rose-500 hover:from-red-600 hover:to-rose-600 rounded-b-xl active:scale-95 transition-all"
+              >
+                Logout
+              </button>
+            )}
+          </div>
+        )}
       </div>
     </header>
   );

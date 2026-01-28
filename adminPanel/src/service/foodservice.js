@@ -1,4 +1,3 @@
-
 import axios from "axios";
 
 const API_URL = "http://localhost:8080/api/foods";
@@ -8,12 +7,22 @@ export const addfood = async (foodData, image) => {
 
   formData.append(
     "food",
-    new Blob([JSON.stringify(foodData)], { type: "application/json" })
+    new Blob([JSON.stringify(foodData)], {
+      type: "application/json",
+    })
   );
+
   formData.append("file", image);
 
   try {
-    await axios.post(API_URL, formData);
+    const token = localStorage.getItem("adminToken");
+
+    await axios.post(API_URL, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        //  DO NOT set Content-Type manually for FormData
+      },
+    });
   } catch (err) {
     console.error(err);
     throw err;

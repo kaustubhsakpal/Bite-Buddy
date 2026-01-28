@@ -10,19 +10,10 @@ const Orders = () => {
     fetchOrders();
   }, []);
 
-  // 📥 get orders from backend (JWT PROTECTED)
+  // 📥 get orders from backend (SAFE)
   const fetchOrders = async () => {
     try {
-      const token = localStorage.getItem("adminToken");
-
-      const res = await axios.get(
-        "http://localhost:8080/api/orders",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const res = await axios.get("http://localhost:8080/api/orders");
 
       // 🔥 HANDLE ALL RESPONSE TYPES
       const data = Array.isArray(res.data)
@@ -31,7 +22,7 @@ const Orders = () => {
         ? res.data.orders
         : [];
 
-      console.log("ORDERS FROM API:", data);
+      console.log("ORDERS FROM API:", data); // DEBUG
 
       setOrders(data);
       setLoading(false);
@@ -42,20 +33,12 @@ const Orders = () => {
     }
   };
 
-  // ✅ accept / reject order (JWT PROTECTED)
+  // ✅ accept / reject order
   const updateStatus = async (id, status) => {
     try {
-      const token = localStorage.getItem("adminToken");
-
-      await axios.put(
-        `http://localhost:8080/api/orders/${id}`,
-        { status },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await axios.put(`http://localhost:8080/api/orders/${id}`, {
+        status,
+      });
 
       // ⚡ instant UI update
       setOrders((prev) =>
